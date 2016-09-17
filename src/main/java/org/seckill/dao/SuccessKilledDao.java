@@ -15,7 +15,7 @@ public interface SuccessKilledDao {
     int insertSuccessKilled(@Param("seckillId") long seckilled ,@Param("userPhone") long userPhone);
 
     /**
-     * 
+     *
      * @param seckilled
      * @param userPhone
      * @return
