@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class SeckillServiceImpl implements SeckillService {
                     throw new RepeatKillException("Seckill Repeated");
                 } else {
                     SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
-                    return new SeckillExecution(seckillId, SeckillStateEnum.SUCCESS, successKilled);
+                    return new SeckillExecution(seckillId, SeckillStateEnum.SUCCESS);
                 }
             }
 

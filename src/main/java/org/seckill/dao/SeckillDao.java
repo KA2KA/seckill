@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by wuwan on 2016/9/11.
  */
+
 public interface SeckillDao {
     /**
      * 减库存
