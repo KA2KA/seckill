@@ -68,7 +68,7 @@ public class SeckillController {
 
     @RequestMapping(value = "/{seckillId}/{md5}/execution", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public SeckillResult<SeckillExecution> execution(@PathVariable("seckillId") Long seckillId, @CookieValue(value = "userPhone", required = false) Long userPhone, @PathVariable("md5") String md5) {
+    public SeckillResult<SeckillExecution> execution(@PathVariable("seckillId") Long seckillId, @CookieValue(value = "killPhone", required = false) Long userPhone, @PathVariable("md5") String md5) {
 
         if (userPhone == null) {
             return new SeckillResult<SeckillExecution>(false, "未找到该用户");
@@ -79,19 +79,20 @@ public class SeckillController {
             result = new SeckillResult<>(true, seckillExecution);
         } catch (RepeatKillException e) {
             SeckillExecution seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.REPEAT_KILL);
-            result = new SeckillResult<>(false, seckillExecution);
+            result = new SeckillResult<>(true, seckillExecution);
         } catch (SeckillCloseException e) {
             SeckillExecution seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.END);
-            result = new SeckillResult<>(false, seckillExecution);
+            result = new SeckillResult<>(true, seckillExecution);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             SeckillExecution seckillExecution = new SeckillExecution(seckillId, SeckillStateEnum.INNER_ERROR);
-            result = new SeckillResult<>(false, seckillExecution);
+            result = new SeckillResult<>(true, seckillExecution);
         }
         return result;
     }
 
     @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+    @ResponseBody
     public SeckillResult<Long> time() {
         return new SeckillResult<Long>(true, new Date().getTime());
     }
